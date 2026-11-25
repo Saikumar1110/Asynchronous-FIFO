@@ -1,2 +1,8 @@
 # Asynchronous-FIFO
 Design of Asynchronous FIFO with 8 bit Wide and 16Word Depth
+
+This project implements an **Asynchronous FIFO (First-In, First-Out) memory** using Verilog HDL to enable reliable data transfer between two independent clock domains. The FIFO uses separate write and read clocks, allowing data to be written and read at different frequencies without requiring the clocks to be synchronized. The design is parameterized to support configurable data width, address width, and FIFO depth. The memory module stores the input data, while separate read and write pointer modules keep track of the memory locations.
+
+To handle clock domain crossing (CDC), the design uses **Gray-code read and write pointers** along with two-stage synchronizer circuits. Gray-code encoding ensures that only one bit changes between consecutive pointer values, reducing the risk of metastability when pointer information crosses between clock domains. The synchronized pointers are used to generate the FIFO status flags, `full` and `empty`, preventing data from being overwritten when the FIFO is full or read when it is empty.
+
+A Verilog testbench is developed to verify the functionality of the FIFO under different operating conditions. The testbench covers reset operation, multiple write and read transactions, FIFO empty and full conditions, attempts to write when full, attempts to read when empty, and pointer wrap-around behavior. Different clock periods are used for the read and write clocks to simulate asynchronous operation. The project demonstrates the fundamentals of asynchronous FIFO architecture, clock domain crossing, Gray-code pointer synchronization, and RTL functional verification.
